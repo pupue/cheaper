@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { Result } from "@/types";
 import { ProductForm } from "./_ProductForm";
 import { useProductForm } from "./useProductForm";
 
@@ -8,7 +9,10 @@ export const CompareForm = () => {
   const { product: productA, handleChange: handleChangeA, handleBlur: handleBlurA } = useProductForm();
   const { product: productB, handleChange: handleChangeB, handleBlur: handleBlurB } = useProductForm();
 
-  const [result, setResult] = useState<"a" | "b" | "none" | undefined>(undefined);
+  const [result, setResult] = useState<Result>({
+    cheaperProduct: null,
+    savings: null,
+  });
 
   const handleCompare = () => {
     const costPerUnitA =
@@ -17,27 +21,51 @@ export const CompareForm = () => {
       parseFloat(productB.amount) / (parseFloat(productB.volume) * parseFloat(productB.quantity || "1"));
 
     if (costPerUnitA < costPerUnitB) {
-      setResult("a");
+      setResult({
+        cheaperProduct: "a",
+        savings: Math.floor(
+          (costPerUnitB - costPerUnitA) * (parseFloat(productA.volume) * parseFloat(productA.quantity || "1"))
+        ),
+      });
     } else if (costPerUnitA > costPerUnitB) {
-      setResult("b");
+      setResult({
+        cheaperProduct: "b",
+        savings: Math.floor(
+          (costPerUnitA - costPerUnitB) * (parseFloat(productB.volume) * parseFloat(productB.quantity || "1"))
+        ),
+      });
     } else {
-      setResult("none");
+      setResult({
+        cheaperProduct: "none",
+        savings: null,
+      });
     }
   };
 
   return (
     <div>
+      <p className={`${result.cheaperProduct ? "" : "opacity-0"} text-center tracking-wider`}>
+        {result.cheaperProduct === "none" ? (
+          <span>どちらを買っても同じです！</span>
+        ) : (
+          <span className="text-xs">
+            商品{result.cheaperProduct}のほうが
+            <span className="text-md font-bold">{result.savings}円</span>お得！
+          </span>
+        )}
+      </p>
+
       <div className="grid grid-cols-2 gap-1">
         <ProductForm
           type="a"
-          active={result === "a"}
+          active={result.cheaperProduct === "a"}
           onChange={handleChangeA}
           onBlur={handleBlurA}
           product={productA}
         />
         <ProductForm
           type="b"
-          active={result === "b"}
+          active={result.cheaperProduct === "b"}
           onChange={handleChangeB}
           onBlur={handleBlurB}
           product={productB}
