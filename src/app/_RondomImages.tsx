@@ -28,8 +28,8 @@ export const RondomImages = () => {
   }, []);
 
   return (
-    <div className="fixed bottom-0 right-2">
-      <p className="text-center text-xs mb-1">{message}</p>
+    <div className="grid justify-center gap-1">
+      <p className="inline-block text-center text-xs">{message}</p>
       <div className="flex w-40 ml-auto">
         {colors.map((color) => (
           <svg
@@ -38,7 +38,7 @@ export const RondomImages = () => {
             width="126.8"
             height="111.233"
             viewBox="0 0 126.8 111.233"
-            className="h-fit"
+            className="h-auto"
           >
             <g id="グループ_2" data-name="グループ 2" transform="translate(-511.948 -219.053)">
               <path

@@ -8,9 +8,6 @@ body {
   color: #2E2E2E;
   font-size: 16px;
   line-height: 1.7;
-  height: 100svh;
-  border-top: 4px solid #000;
-  border-bottom: 4px solid #000;
 }
 
 input {

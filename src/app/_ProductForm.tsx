@@ -15,7 +15,13 @@ type Props = {
 
 export const ProductForm = ({ type, active, product, onChange, onBlur }: Props) => {
   return (
-    <div className="relative mt-14">
+    <div className="relative">
+      <div
+        className={`${active ? "opacity-1" : "opacity-0"} ${type === "a" ? "left-0" : "right-0"} relative top-2 w-20`}
+      >
+        <Image src="/icon.png" width={311} height={250} alt="" />
+      </div>
+
       <div className="relative z-10 border-2 border-black rounded-[4px] overflow-hidden">
         <div className="border-b-2  border-black bg-[#f1f2f3] p-2 text-center uppercase">商品{type}</div>
         <div className="grid gap-2 p-2 pb-4">
@@ -45,11 +51,6 @@ export const ProductForm = ({ type, active, product, onChange, onBlur }: Props) 
           />
         </div>
       </div>
-      {active && (
-        <div className={`${type === "a" ? "left-0" : "right-0"} absolute -top-14 w-20`}>
-          <Image src="/icon.png" width={311} height={250} alt="" />
-        </div>
-      )}
     </div>
   );
 };

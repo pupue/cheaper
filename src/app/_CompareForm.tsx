@@ -44,11 +44,11 @@ export const CompareForm = () => {
 
   return (
     <div>
-      <p className={`${result.cheaperProduct ? "" : "opacity-0"} text-center tracking-wider`}>
+      <p className={`${result.cheaperProduct ? "opacity-1" : "opacity-0"} text-center tracking-wider mb-2`}>
         {result.cheaperProduct === "none" ? (
           <span>どちらを買っても同じです！</span>
         ) : (
-          <span className="text-xs">
+          <span className="text-xs uppercase">
             商品{result.cheaperProduct}のほうが
             <span className="text-md font-bold">{result.savings}円</span>お得！
           </span>
@@ -58,14 +58,14 @@ export const CompareForm = () => {
       <div className="grid grid-cols-2 gap-1">
         <ProductForm
           type="a"
-          active={result.cheaperProduct === "a"}
+          active={result.cheaperProduct === "a" || result.cheaperProduct === "none"}
           onChange={handleChangeA}
           onBlur={handleBlurA}
           product={productA}
         />
         <ProductForm
           type="b"
-          active={result.cheaperProduct === "b"}
+          active={result.cheaperProduct === "b" || result.cheaperProduct === "none"}
           onChange={handleChangeB}
           onBlur={handleBlurB}
           product={productB}
