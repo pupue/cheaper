@@ -17,7 +17,7 @@ export const ProductForm = ({ type, active, product, onChange, onBlur }: Props) 
   return (
     <div className="relative">
       <div
-        className={`${active ? "opacity-1" : "opacity-0"} ${type === "a" ? "left-0" : "right-0"} relative top-2 w-20`}
+        className={`${active ? "opacity-1" : "opacity-0"} ${type === "a" ? "left-0" : "right-0"} relative top-1 w-12`}
       >
         <Image src="/icon.png" width={311} height={250} alt="" />
       </div>

@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev:port": "next dev -H 192.168.3.3 -p 3000",
+    "dev:port": "next dev -H 192.168.3.19 -p 3000",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -15,7 +15,8 @@
     "@mantine/hooks": "^7.10.1",
     "next": "14.2.3",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@types/node": "^20",

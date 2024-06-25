@@ -1,9 +1,16 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { z } from "zod";
 import { Result } from "@/types";
 import { ProductForm } from "./_ProductForm";
 import { useProductForm } from "./useProductForm";
+
+const productSchema = z.object({
+  amount: z.string().min(1, "Amount is required"),
+  volume: z.string().min(1, "Volume is required"),
+  quantity: z.string().optional(),
+});
 
 export const CompareForm = () => {
   const { product: productA, handleChange: handleChangeA, handleBlur: handleBlurA } = useProductForm();
@@ -13,6 +20,13 @@ export const CompareForm = () => {
     cheaperProduct: null,
     savings: null,
   });
+  const [disabled, setDisabled] = useState(true);
+
+  useEffect(() => {
+    const isProductAValid = productSchema.safeParse(productA).success;
+    const isProductBValid = productSchema.safeParse(productB).success;
+    setDisabled(!(isProductAValid && isProductBValid));
+  }, [productA, productB]);
 
   const handleCompare = () => {
     const costPerUnitA =
@@ -50,7 +64,7 @@ export const CompareForm = () => {
         ) : (
           <span className="text-xs uppercase">
             商品{result.cheaperProduct}のほうが
-            <span className="text-md font-bold">{result.savings}円</span>お得！
+            <span className="text-md font-bold">{result.savings?.toLocaleString()}円</span>お得！
           </span>
         )}
       </p>
@@ -73,7 +87,12 @@ export const CompareForm = () => {
       </div>
 
       <div className="flex justify-center">
-        <button type="button" onClick={handleCompare} className="bg-[#2E2E2E] text-white rounded-full p-2 px-4 mt-4">
+        <button
+          type="button"
+          disabled={disabled}
+          onClick={handleCompare}
+          className={`${disabled ? "bg-gray-400" : "bg-[#2E2E2E]"} text-white rounded-full p-2 px-4 mt-4`}
+        >
           比較する
         </button>
       </div>
