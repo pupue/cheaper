@@ -7,8 +7,8 @@ import { ProductForm } from "./_ProductForm";
 import { useProductForm } from "./useProductForm";
 
 const productSchema = z.object({
-  amount: z.string().min(1, "Amount is required"),
-  volume: z.string().min(1, "Volume is required"),
+  amount: z.string().min(1, "入力必須です"),
+  volume: z.string().min(1, "入力必須です"),
   quantity: z.string().optional(),
 });
 

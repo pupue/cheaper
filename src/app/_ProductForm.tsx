@@ -32,6 +32,7 @@ export const ProductForm = ({ type, active, product, onChange, onBlur }: Props) 
             value={product.amount}
             onChange={onChange}
             onBlur={onBlur}
+            required
           />
           <Input
             label="容量（g,ml,個など）"
@@ -40,6 +41,7 @@ export const ProductForm = ({ type, active, product, onChange, onBlur }: Props) 
             value={product.volume}
             onChange={onChange}
             onBlur={onBlur}
+            required
           />
           <Input
             label="個数"
