@@ -13,8 +13,18 @@ const productSchema = z.object({
 });
 
 export const CompareForm = () => {
-  const { product: productA, handleChange: handleChangeA, handleBlur: handleBlurA } = useProductForm();
-  const { product: productB, handleChange: handleChangeB, handleBlur: handleBlurB } = useProductForm();
+  const {
+    product: productA,
+    resetValue: resetValueA,
+    handleChange: handleChangeA,
+    handleBlur: handleBlurA,
+  } = useProductForm();
+  const {
+    product: productB,
+    resetValue: resetValueB,
+    handleChange: handleChangeB,
+    handleBlur: handleBlurB,
+  } = useProductForm();
 
   const [result, setResult] = useState<Result>({
     cheaperProduct: null,
@@ -56,6 +66,17 @@ export const CompareForm = () => {
     }
   };
 
+  const handleReset = () => {
+    if (window.confirm("入力内容をリセットしますか？")) {
+      resetValueA();
+      resetValueB();
+      setResult({
+        cheaperProduct: null,
+        savings: null,
+      });
+    }
+  };
+
   return (
     <div>
       <p className={`${result.cheaperProduct ? "opacity-1" : "opacity-0"} text-center tracking-wider mb-2`}>
@@ -86,7 +107,7 @@ export const CompareForm = () => {
         />
       </div>
 
-      <div className="flex justify-center">
+      <div className="grid gap-4 justify-center">
         <button
           type="button"
           disabled={disabled}
@@ -94,6 +115,9 @@ export const CompareForm = () => {
           className={`${disabled ? "bg-gray-400" : "bg-[#2E2E2E]"} text-white rounded-full p-2 px-4 mt-4`}
         >
           比較する
+        </button>
+        <button type="button" onClick={handleReset} className="text-sm underline">
+          リセット
         </button>
       </div>
     </div>

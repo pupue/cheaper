@@ -22,10 +22,15 @@ export const useProductForm = () => {
     }
   };
 
+  const resetValue = () => {
+    setProduct({ amount: "", volume: "", quantity: "" });
+  };
+
   return {
     product,
     handleChange,
     handleBlur,
     errors,
+    resetValue,
   };
 };
