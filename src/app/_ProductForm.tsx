@@ -28,7 +28,7 @@ export const ProductForm = ({ type, active, product, onChange, onBlur }: Props) 
           <Input
             label="金額（円）"
             name="amount"
-            inputMode="tel"
+            inputMode="decimal"
             value={product.amount}
             onChange={onChange}
             onBlur={onBlur}
@@ -37,7 +37,7 @@ export const ProductForm = ({ type, active, product, onChange, onBlur }: Props) 
           <Input
             label="容量（g,ml,個など）"
             name="volume"
-            inputMode="tel"
+            inputMode="decimal"
             value={product.volume}
             onChange={onChange}
             onBlur={onBlur}
@@ -46,7 +46,7 @@ export const ProductForm = ({ type, active, product, onChange, onBlur }: Props) 
           <Input
             label="個数"
             name="quantity"
-            inputMode="tel"
+            inputMode="decimal"
             value={product.quantity}
             onChange={onChange}
             onBlur={onBlur}
