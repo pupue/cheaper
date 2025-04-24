@@ -47,16 +47,12 @@ export const CompareForm = () => {
     if (costPerUnitA < costPerUnitB) {
       setResult({
         cheaperProduct: "a",
-        savings: Math.floor(
-          (costPerUnitB - costPerUnitA) * (parseFloat(productA.volume) * parseFloat(productA.quantity || "1"))
-        ),
+        savings: Math.ceil(costPerUnitB - costPerUnitA),
       });
     } else if (costPerUnitA > costPerUnitB) {
       setResult({
         cheaperProduct: "b",
-        savings: Math.floor(
-          (costPerUnitA - costPerUnitB) * (parseFloat(productB.volume) * parseFloat(productB.quantity || "1"))
-        ),
+        savings: Math.ceil(costPerUnitA - costPerUnitB),
       });
     } else {
       setResult({
@@ -84,7 +80,7 @@ export const CompareForm = () => {
           <span>どちらを買っても同じです！</span>
         ) : (
           <span className="text-xs uppercase">
-            商品{result.cheaperProduct}のほうが
+            商品{result.cheaperProduct}のほうが1単位あたり
             <span className="text-md font-bold">{result.savings?.toLocaleString()}円</span>お得！
           </span>
         )}
