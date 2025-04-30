@@ -22,7 +22,7 @@ console.log(`🚀 http://${localIp}:${port}`);
 
 exec(
 	`npx next dev -H ${localIp} -p ${port}`,
-	(error: Error | null, stdout: string, stderr: string) => {
+	(error, stdout, stderr) => {
 		if (error) {
 			console.error(`エラー: ${stderr}`);
 			return;
