@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import "./globals.css";
-import { MantineProvider } from "@mantine/core";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 
@@ -25,7 +24,7 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <body className={montserrat.className}>
-        <MantineProvider>{children}</MantineProvider>
+			{children}
       </body>
     </html>
   );

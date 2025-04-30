@@ -1,29 +1,45 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { useMantineTheme } from "@mantine/core";
+
+const colorPalette: string[][] = [
+  ["#fb923c", "#f97316", "#ea580c"],
+  ["#fbbf24", "#f59e0b", "#d97706"],
+  ["#facc15", "#eab308", "#ca8a04"],
+  ["#a3e635", "#84cc16", "#65a30d"],
+  ["#4ade80", "#22c55e", "#16a34a"],
+  ["#34d399", "#10b981", "#059669"],
+  ["#2dd4bf", "#14b8a6", "#0d9488"],
+  ["#22d3ee", "#06b6d4", "#0891b2"],
+  ["#38bdf8", "#0ea5e9", "#0284c7"],
+  ["#60a5fa", "#3b82f6", "#2563eb"],
+  ["#818cf8", "#6366f1", "#4f46e5"],
+  ["#a78bfa", "#8b5cf6", "#7c3aed"],
+  ["#c084fc", "#a855f7", "#9333ea"],
+  ["#e879f9", "#d946ef", "#c026d3"],
+  ["#f472b6", "#ec4899", "#db2777"],
+];
+
+const messages = [
+	"お買い物お疲れさま",
+	"今日の体調はどうですか",
+	"オトクな商品に出会えましたか",
+	"素敵な買い物ができますように",
+	"たまには休もうね",
+	"無理せずマイペースでいこう",
+	"心と体を大事にね",
+	"今日はゆっくり過ごせますように",
+	"今日も穏やかな一日を",
+];
+
 
 export const RondomImages = () => {
-  const theme = useMantineTheme();
   const [colors, setColors] = useState<string[]>([]);
   const [message, setMessage] = useState("");
-  const messages = [
-    "お買い物お疲れさま",
-    "今日の体調はどうですか",
-    "オトクな商品に出会えましたか",
-    "素敵な買い物ができますように",
-    "たまには休もうね",
-  ];
 
   useEffect(() => {
-    const colorsArray = Object.values(theme.colors);
-    const excludeColors = ["#3B3B3B", "#ADB5BD", "#FF6B6B"];
-    const filteredColorsArray = colorsArray.filter(
-      (colorSet) => !excludeColors.includes(colorSet[5]) && !excludeColors.includes(colorSet[7])
-    );
-    const randomColorSet = filteredColorsArray[Math.floor(Math.random() * colorsArray.length)];
-    const selectedColors = [randomColorSet[3], randomColorSet[5], randomColorSet[7]];
-    setColors(selectedColors);
+    const randomColors = colorPalette[Math.floor(Math.random() * colorPalette.length)];
+    setColors(randomColors);
     setMessage(messages[Math.floor(Math.random() * messages.length)]);
   }, []);
 
