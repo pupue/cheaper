@@ -1,10 +1,9 @@
 name: CI
-
 on:
   pull_request:
-    branches: [ main ]
+    branches: [main]
   push:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   test:
@@ -12,20 +11,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: yarn
+        with: { node-version: 22, cache: yarn }
       - run: yarn install --frozen-lockfile
-      - run: yarn test 
+      - run: yarn test    # ← PRでもpushでも実行
 
   build:
     needs: test
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'  # ← main push のみ
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: yarn
+        with: { node-version: 22, cache: yarn }
       - run: yarn install --frozen-lockfile
       - run: yarn build
