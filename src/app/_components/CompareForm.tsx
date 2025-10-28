@@ -3,7 +3,8 @@
 import React, { useState } from "react";
 import clsx from "clsx";
 import { z } from "zod";
-import { Product, Result } from "@/types";
+import { Result } from "@/types";
+import { getCostPerUnit } from "@/utils/price";
 import { ProductForm } from "./ProductForm";
 import { useProductForm } from "../_hooks/useProductForm";
 
@@ -135,24 +136,3 @@ export const CompareForm = () => {
 };
 
 const ceilToSecondDecimal = (num: number) => Math.ceil(num * 100) / 100;
-
-const getCostPerUnit = (product: Product): number => {
-	const amount = Number.parseFloat(product.amount);
-	const volume = Number.parseFloat(product.volume);
-	const quantity = Number.parseFloat(product.quantity || "1");
-	const purchaseCount = Number.parseFloat(product.purchaseCount || "1");
-	const discount = Number.parseFloat(product.discount || "0");
-	const discountType = product.discountType;
-
-	const totalQuantity = volume * quantity * purchaseCount; // 総量
-	const baseAmount = amount * purchaseCount; // 基本金額
-
-	const discountedAmount = // 割引後の金額
-		discountType === "yen"
-			? baseAmount - discount
-			: discountType === "percent"
-				? baseAmount * (1 - discount / 100)
-				: baseAmount;
-
-	return discountedAmount / totalQuantity;
-};
