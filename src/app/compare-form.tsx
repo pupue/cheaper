@@ -4,14 +4,23 @@ import React, { useState } from "react";
 import clsx from "clsx";
 import { z } from "zod";
 import { Result } from "@/types";
-import { getCostPerUnit } from "@/utils/price";
-import { ProductForm } from "./ProductForm";
-import { useProductForm } from "../_hooks/useProductForm";
+import { ceilToSecondDecimal, getCostPerUnit } from "@/utils/price";
+import { ProductForm } from "./_components/ProductForm";
+import { useProductForm } from "./_hooks/useProductForm";
 
 const productSchema = z.object({
-	amount: z.string().min(1, "入力必須です"),
-	volume: z.string().min(1, "入力必須です"),
-	quantity: z.string().optional(),
+	amount: z
+		.string()
+		.min(1)
+		.regex(/^(?!0\d)/),
+	volume: z
+		.string()
+		.min(1)
+		.regex(/^(?!0\d)/),
+	quantity: z
+		.string()
+		.regex(/^(?!0\d)/)
+		.optional(),
 });
 
 export const CompareForm = () => {
@@ -72,6 +81,8 @@ export const CompareForm = () => {
 	return (
 		<div>
 			<p
+				data-testid="result"
+				data-cheaper={result.cheaperProduct}
 				className={clsx(
 					result.cheaperProduct ? "opacity-1" : "opacity-0",
 					"text-center",
@@ -100,6 +111,7 @@ export const CompareForm = () => {
 					}
 					onChange={handleChangeA}
 					product={productA}
+					testId="product-a"
 				/>
 				<ProductForm
 					type="b"
@@ -108,6 +120,7 @@ export const CompareForm = () => {
 					}
 					onChange={handleChangeB}
 					product={productB}
+					testId="product-b"
 				/>
 			</div>
 
@@ -134,5 +147,3 @@ export const CompareForm = () => {
 		</div>
 	);
 };
-
-const ceilToSecondDecimal = (num: number) => Math.ceil(num * 100) / 100;

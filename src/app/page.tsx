@@ -1,4 +1,4 @@
-import { CompareForm } from "./_components/CompareForm";
+import { CompareForm } from "./compare-form";
 import { RondomImages } from "../components/RondomImages";
 
 export default function Home() {

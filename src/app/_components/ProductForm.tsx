@@ -12,13 +12,20 @@ type Props = {
 	active?: boolean;
 	product: Product;
 	onChange: (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
+	testId?: string;
 };
 
-export const ProductForm = ({ type, active, product, onChange }: Props) => {
+export const ProductForm = ({
+	type,
+	active,
+	product,
+	onChange,
+	testId,
+}: Props) => {
 	const [showOptions, setShowOptions] = React.useState(false);
 
 	return (
-		<div className="relative">
+		<div data-testid={testId} className="relative">
 			<div
 				className={clsx(
 					"relative top-1 w-12",
@@ -39,6 +46,7 @@ export const ProductForm = ({ type, active, product, onChange }: Props) => {
 				</div>
 				<div className="grid gap-2 p-2 pb-4">
 					<Input
+						aria-label="金額"
 						label="金額"
 						name="amount"
 						inputMode="decimal"
@@ -48,6 +56,7 @@ export const ProductForm = ({ type, active, product, onChange }: Props) => {
 						placeholder="例: 1000(円)"
 					/>
 					<Input
+						aria-label="1個あたりの容量"
 						label="1個あたりの容量"
 						name="volume"
 						inputMode="decimal"
